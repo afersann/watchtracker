@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Historial de [[${reloj.marca}]]</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+  <h2>Historial de [[${reloj.marca}]] [[${reloj.modelo}]]</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Tipo</th>
+      <th>Descripción</th>
+      <th>Coste</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="h : ${historiales}">
+      <td th:text="${h.fechaEvento}">-</td>
+      <td th:text="${h.tipoEvento}">-</td>
+      <td th:text="${h.descripcionEvento}">-</td>
+      <td th:text="${h.costeEstimado}">-</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

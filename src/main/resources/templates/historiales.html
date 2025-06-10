@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial técnico</title>
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<div th:insert="~{fragments/header :: barra-superior}"></div>
+<div th:insert="~{fragments/navbar :: barra-navegacion}"></div>
+
+<main class="container flex-grow-1 mt-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <!-- Título y alta -->
+            <header class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h4 mb-0">Historial técnico</h1>
+                <a th:href="@{/historiales/nuevo}" class="btn">
+                    <img th:src="@{/img/iconos/nuevo-evento.png}" alt="Añadir evento" class="nuevoevento"/>
+                </a>
+            </header>
+
+            <!-- Formulario de filtros -->
+            <form method="get" th:action="@{/historiales}" class="row g-3 mb-4">
+
+                <!-- ▼ Tipo -->
+                <div class="col-md-3">
+                    <label class="form-label">Tipo</label>
+                    <select name="tipo" class="form-select">
+                        <option value="" th:selected="${#strings.isEmpty(param.tipo)}">– Todos –</option>
+                        <option th:each="t : ${tipos}" th:value="${t}" th:text="${#strings.capitalize(t)}" th:selected="${t == param.tipo}"></option>
+                    </select>
+                </div>
+
+                <!-- ▼ Marca -->
+                <div class="col-md-3">
+                    <label class="form-label">Marca</label>
+                    <select name="marca" class="form-select">
+                        <option value="" th:selected="${#strings.isEmpty(param.marca)}">– Todas –</option>
+                        <option th:each="m : ${marcas}" th:value="${m}" th:text="${#strings.capitalize(m)}" th:selected="${m == param.marca}"></option>
+                    </select>
+                </div>
+
+                <!-- ▼ Fecha desde -->
+                <div class="col-md-2">
+                    <label class="form-label">Desde</label>
+                    <input type="date" name="desde" class="form-control" th:value="${param.desde}">
+                </div>
+
+                <!-- ▼ Fecha hasta -->
+                <div class="col-md-2">
+                    <label class="form-label">Hasta</label>
+                    <input type="date" name="hasta" class="form-control" th:value="${param.hasta}">
+                </div>
+
+                <!-- Botones -->
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn">
+                        <img th:src="@{/img/iconos/buscar.png}" alt="Buscar" class="action-icon"/>
+                    </button>
+                    <a th:href="@{/historiales}" class="btn">
+                        <img th:src="@{/img/iconos/limpiar.png}" alt="Limpiar" class="action-icon"/>
+                    </a>
+                </div>
+            </form>
+
+            <!-- Sin resultados -->
+            <div th:if="${#lists.isEmpty(historiales)}" class="alert alert-warning">
+                No se encontraron resultados con los filtros aplicados.
+            </div>
+
+            <!-- Tabla de resultados -->
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" th:if="${!#lists.isEmpty(historiales)}">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th class="d-none d-md-table-cell">Descripción</th>
+                        <th class="d-none d-md-table-cell">Coste (€)</th>
+                        <th class="d-none d-md-table-cell">Reloj</th>
+                        <th class="d-none d-md-table-cell">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="h : ${historiales}">
+                        <td th:text="${#temporals.format(h.fechaEvento,'dd/MM/yyyy')}"></td>
+                        <td th:text="${h.tipoEvento}"></td>
+                        <td class="d-none d-md-table-cell" th:text="${h.descripcionEvento}"></td>
+                        <td class="d-none d-md-table-cell" th:text="${h.costeEstimado}"></td>
+                        <td class="d-none d-md-table-cell" th:text="${h.reloj.marca + ' ' + h.reloj.modelo}"></td>
+                        <td class="d-none d-md-table-cell">
+                            <a th:href="@{'/historiales/editar/' + ${h.id}}" class="btn btn-sm ">
+                                <img th:src="@{/img/iconos/editar.png}" alt="Editar" class="action-icon"/>
+                            </a>
+                            <a th:href="@{'/historiales/eliminar/' + ${h.id}}" class="btn btn-sm " onclick="return confirm('¿Eliminar este evento?');">
+                                <img th:src="@{/img/iconos/eliminar.png}" alt="Eliminar" class="action-icon"/>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Botón "Ver +" solo en móvil -->
+            <div class="d-md-none text-end mt-2" th:if="${!#lists.isEmpty(historiales)}">
+                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#tablaCompletaModal" aria-label="Ver tabla completa">
+                    Ver +
+                </button>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<!-- Modal para tabla completa -->
+<div class="modal fade" id="tablaCompletaModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Historial técnico completo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive"></div> <!-- tabla se inserta por JS -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fragmentos y scripts -->
+<div id="datos-usuario" th:data-usuario="${#authentication.name}" style="display:none;"></div>
+<div th:insert="~{fragments/footer :: pie}"></div>
+<div th:insert="~{'fragments/chat-popup' :: notificacion}"></div>
+<div th:insert="~{fragments/chat-popup :: boton}"></div>
+<div th:insert="~{fragments/chat-popup :: ventana}"></div>
+
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/chat.js}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('tablaCompletaModal');
+
+        modal.addEventListener('show.bs.modal', () => {
+            const tablaOrigen = document.querySelector('.card-body table.table');
+            const contenedor = modal.querySelector('.modal-body .table-responsive');
+
+            if (!tablaOrigen || !contenedor) return;
+
+            contenedor.innerHTML = '';
+            const clon = tablaOrigen.cloneNode(true);
+            clon.querySelectorAll('.d-none').forEach(el => el.classList.remove('d-none'));
+            contenedor.appendChild(clon);
+        });
+    });
+</script>
+</body>
+</html>

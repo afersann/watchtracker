@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Control | WatchTracker</title>
+  <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+  <!-- Bootstrap y Bootstrap Icons -->
+  <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-dark">
+
+
+<div th:insert="~{fragments/header :: barra-superior}"></div>
+<div th:insert="~{fragments/navbar :: barra-navegacion}"></div>
+
+
+<section class="hero-banner d-flex align-items-center justify-content-center">
+  <div class="hero-overlay d-flex align-items-center justify-content-center">
+  </div>
+</section>
+
+<!-- Panel de categorías -->
+<div class="cat-panel">
+  <h1>Elige una sección</h1>
+  <p>Accesos rápidos</p>
+  <div class="cat-grid">
+
+    <!-- Gestión de Relojes -->
+    <div class="cat-item">
+      <a th:href="@{/relojes}">
+        <img src="/img/iconos/relojes.png" alt="Relojes">
+        <span>Gestión de Relojes</span>
+      </a>
+    </div>
+
+    <!-- Historial Técnico (técnico/admin) -->
+    <div class="cat-item"
+         th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_TECNICO'')')}">
+      <a th:href="@{/historiales}">
+        <img src="/img/iconos/identificacionescat.png" alt="Historial Técnico">
+        <span>Historial Técnico</span>
+      </a>
+    </div>
+
+    <!-- Identificación IA -->
+    <div class="cat-item">
+      <a th:href="@{/identificar-reloj}">
+        <img src="/img/iconos/identificarcat.png" alt="Identificar">
+        <span>Identificación IA</span>
+      </a>
+    </div>
+
+    <!-- Ver Identificaciones -->
+    <div class="cat-item">
+      <a th:href="@{/historial}">
+        <img src="/img/iconos/historialpanel.png" alt="Ver Identificaciones">
+        <span>Ver Identificaciones</span>
+      </a>
+    </div>
+
+    <!-- Documentos Externos (técnico/admin) -->
+    <div class="cat-item"
+         th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_TECNICO'')')}">
+      <a th:href="@{/documentos}">
+        <img src="/img/iconos/externos.png" alt="Documentos Externos">
+        <span>Documentos Externos</span>
+      </a>
+    </div>
+
+    <!-- Gestión de Usuarios (solo admin) -->
+    <div class="cat-item"
+         th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+      <a th:href="@{/admin/usuarios}">
+        <img src="/img/iconos/usuarios.png" alt="Gestión Usuarios">
+        <span>Gestión Usuarios</span>
+      </a>
+    </div>
+
+    <!-- Cerrar Sesión -->
+    <div class="cat-item">
+      <a th:href="@{/logout}">
+        <img src="/img/iconos/logout.png" alt="Cerrar Sesión">
+        <span>Cerrar Sesión</span>
+      </a>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div th:insert="~{fragments/footer :: pie}"></div>
+<div th:insert="~{'fragments/chat-popup' :: notificacion}"></div>
+<div th:insert="~{fragments/chat-popup :: boton}"></div>
+<div th:insert="~{fragments/chat-popup :: ventana}"></div>
+
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/chat.js}"></script>
+</body>
+</html>

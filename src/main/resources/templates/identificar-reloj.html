@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Identificación por imagen</title>
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-light">
+
+<div th:insert="~{fragments/header :: barra-superior}"></div>
+<div th:insert="~{fragments/navbar :: barra-navegacion}"></div>
+
+<!-- Contenido -->
+<div class="container cont mt-4 mb-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <!-- Título y alta -->
+            <header class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h4 mb-0">🔍 Identifica tu reloj al instante</h1>
+            </header>
+
+            <section class="watch-identifier max-w-xl mx-auto p-6">
+                <p class="mb-4">
+                    Sube una foto de tu reloj y deja que nuestra IA haga el resto. Combinamos la detección de objetos de
+                    <strong>Roboflow</strong>, el reconocimiento de imágenes de <strong>Google Cloud Vision</strong> y un motor <strong>OCR</strong>
+                    avanzado que lee números de serie, logotipos y cualquier texto grabado.
+                </p>
+                <p>
+                    Lo mejor: todas estas plataformas se pueden <strong>entrenar de forma continua</strong>. Con cada imagen que aportes, el equipo de
+                    <strong>TrackWatcher</strong>&nbsp;—junto contigo y el resto de la comunidad—mejora el modelo y enriquece la base de datos. Así, cada día tendremos más información y una identificación aún más precisa.
+                    ¡Identificar tu reloj nunca había sido tan fácil… ni tan inteligente!
+                </p>
+            </section>
+
+            <hr>
+
+
+            <form th:action="@{/identificar-reloj}"
+                  method="post"
+                  enctype="multipart/form-data"
+                  class="row gx-3 gy-4">
+
+                <div class="col-12">
+                    <label for="imagen" class="form-label">Sube una imagen del reloj <span class="text-danger">*</span></label>
+                    <input
+                            type="file"
+                            name="imagen"
+                            id="imagen"
+                            class="form-control"
+                            accept="image/*"
+                            required
+                            onchange="mostrarVistaPrevia(this)"
+                    >
+
+                    <img
+                            id="preview"
+                            alt="Vista previa de la imagen seleccionada"
+                            class="mt-3 d-block mx-auto"
+                            style="max-width: 300px; display: none;" />
+                </div>
+
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn mt-3 d-block mx-auto">
+                        <img th:src="@{/img/iconos/pulsa.png}" alt="Identificar" class="action-icon" style="width:100px; height:100px;"/></button>
+                </div>
+            </form>
+
+            <!-- Mostrar errores si existen -->
+            <div th:if="${error}" class="alert alert-danger mt-4">
+                <h5>Error:</h5>
+                <p th:text="${error}">Ocurrió un error.</p>
+            </div>
+
+            <!-- Mostrar resultados si existen -->
+            <div th:if="${resultados != null}" class="mt-5">
+                <!-- Google Cloud Vision -->
+                <div th:if="${resultados['Google Cloud Vision'] != null}" class="mb-4">
+                    <h4>Google Cloud Vision</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                            th:each="etiqueta : ${resultados['Google Cloud Vision']}">
+                            <span th:text="${etiqueta.key}">Etiqueta</span>
+                            <span class="badge bg-primary rounded-pill"
+                                  th:text="${#numbers.formatDecimal(etiqueta.value, 1, 2)}">
+                                    0.00
+                                </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Texto detectado -->
+                <div th:if="${resultados['Texto detectado'] != null}" class="mb-4">
+                    <h4>Texto Detectado en la Imagen</h4>
+                    <div class="alert alert-warning" th:text="${resultados['Texto detectado']}">
+                        Texto detectado por OCR…
+                    </div>
+                </div>
+
+                <!-- Roboflow -->
+                <div th:if="${resultados['Roboflow'] != null}" class="mb-4">
+                    <h4>Resultado de Roboflow</h4>
+                    <pre class="bg-light p-3 border rounded"
+                         th:text="${resultados['Roboflow']}">
+Roboflow JSON…
+                        </pre>
+                </div>
+
+                <!-- Información técnica -->
+                <div th:if="${resultados['Información Técnica'] != null}" class="mb-4">
+                    <h4>Información Técnica del Reloj</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item"
+                            th:each="info : ${resultados['Información Técnica']}">
+                            <strong th:text="${info.key}">Propiedad</strong>:
+                            <span th:text="${info.value}">Valor</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function mostrarVistaPrevia(input) {
+        const preview = document.getElementById('preview');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+</script>
+<!-- Scripts -->
+<div id="datos-usuario" th:data-usuario="${#authentication.name}" style="display: none;"></div>
+<div th:insert="~{fragments/footer :: pie}"></div>
+<div th:insert="~{'fragments/chat-popup' :: notificacion}"></div>
+<div th:insert="~{fragments/chat-popup :: boton}"></div>
+<div th:insert="~{fragments/chat-popup :: ventana}"></div>
+
+
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/chat.js}"></script>
+</body>
+</html>

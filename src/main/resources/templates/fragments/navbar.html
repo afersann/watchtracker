@@ -1,0 +1,128 @@
+<!-- src/main/resources/templates/fragments/navbar.html -->
+<nav th:fragment="barra-navegacion"
+     class="navbar px-4 py-2 shadow-sm"
+     style="background-color: #fff; opacity: 0.9; border-bottom: 1px solid #ddd; z-index: 1000;">
+
+  <div class="container-xl px-4">
+
+    <!-- Primera fila: toggler, menú colapsable y usuario -->
+    <div class="d-flex w-100 align-items-center">
+      <!-- Toggler -->
+      <button class="navbar-toggler me-3" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarContenido"
+              aria-controls="navbarContenido"
+              aria-expanded="false"
+              aria-label="Mostrar menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menú colapsable -->
+      <div class="collapse navbar-collapse" id="navbarContenido">
+        <ul class="navbar-nav flex-column gap-3 mb-0">
+
+          <!-- Ver Relojes -->
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" th:href="@{/relojes}">
+              <img th:src="@{/img/iconos/relojes.png}"
+                   alt="Ver Relojes"
+                   class="nav-icon me-2">
+              Ver Relojes
+            </a>
+          </li>
+
+          <!-- Historial Técnico -->
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" th:href="@{/historiales}">
+              <img th:src="@{/img/iconos/historial.png}"
+                   alt="Historial Técnico"
+                   class="nav-icon me-2 ">
+              Historial Técnico
+            </a>
+          </li>
+
+          <!-- Identificar Reloj -->
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" th:href="@{/identificar-reloj}">
+              <img th:src="@{/img/iconos/identificar.png}"
+                   alt="Identificar Reloj"
+                   class="nav-icon me-2">
+              Identificar Reloj
+            </a>
+          </li>
+
+          <!-- Añadir Reloj (Técnico/Admin) -->
+          <li class="nav-item"
+              th:if="${#authorization.expression('hasRole(''ROLE_TECNICO'') or hasRole(''ROLE_ADMIN'')')}">
+            <a class="nav-link text-warning d-flex align-items-center" th:href="@{/relojes/nuevo}">
+              <img th:src="@{/img/iconos/nuevo-reloj.png}"
+                   alt="Añadir Reloj"
+                   class="nav-icon me-2">
+              Añadir Reloj
+            </a>
+          </li>
+
+          <!-- Gestión de Usuarios (Admin) -->
+          <li class="nav-item"
+              th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <a class="nav-link text-danger d-flex align-items-center" th:href="@{/admin/usuarios}">
+              <img th:src="@{/img/iconos/usuarios.png}"
+                   alt="Gestión de Usuarios"
+                   class="nav-icon me-2">
+              Gestión de Usuarios
+            </a>
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- Info usuario a la derecha -->
+      <div class="ms-auto d-flex align-items-center">
+      <span class="me-3 text-muted small border-end pe-3"
+            th:if="${usuarioActual != null}"
+            th:switch="${usuarioActual.rol}">
+        <span th:case="'Admin'">
+          <img th:src="@{/img/iconos/admin.png}" alt="Admin" class="role-icon me-1"/>
+          Admin
+        </span>
+        <span th:case="'Técnico'">
+          <img th:src="@{/img/iconos/tecnico.png}" alt="Técnico" class="role-icon me-1"/>
+          Técnico
+        </span>
+        <span th:case="'Consultor'">
+          <img th:src="@{/img/iconos/consultor.png}" alt="Consultor" class="role-icon me-1"/>
+          Consultor
+        </span>
+        <span th:case="*">
+          <img th:src="@{/img/iconos/usuario.png}" alt="Usuario" class="role-icon me-1"/>
+          Usuario
+        </span>
+      </span>
+        <span class="text-dark small"
+              th:if="${usuarioActual != null}"
+              th:text="${usuarioActual.nombreUsuario}">
+        Usuario
+      </span>
+      </div>
+    </div>
+
+    <!-- Segunda fila: breadcrumb -->
+    <div class="w-100 mt-2">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"
+              th:each="mig, iterStat : ${breadcrumbs}"
+              th:classappend="${iterStat.last} ? 'active'"
+              th:attr="aria-current=${iterStat.last} ? 'page'">
+            <a th:if="${!iterStat.last}"
+               th:href="@{${mig.url}}"
+               th:text="${mig.label}">Ruta</a>
+            <span th:if="${iterStat.last}"
+                  th:text="${mig.label}">Actual</span>
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+  </div>
+</nav>

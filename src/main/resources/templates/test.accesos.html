@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test de Accesos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>🔐 Test de Accesos por Rol</h1>
+    <p>Haz login con diferentes usuarios y prueba si puedes acceder a cada sección:</p>
+
+    <ul>
+        <li><a th:href="@{/panel}">Ir al Panel</a></li>
+        <li><a th:href="@{/identificar-reloj}">Identificar Reloj</a></li>
+        <li><a th:href="@{/relojes}">Gestión de Relojes</a></li>
+        <li><a th:href="@{/historiales}">Historial Técnico</a></li>
+        <li><a th:href="@{/documentos}">Documentos</a></li>
+        <li><a th:href="@{/historial}">Historial de Identificaciones</a></li>
+    </ul>
+
+    <p style="margin-top: 2em;"><a th:href="@{/panel}">⬅️ Volver al panel</a></p>
+</div>
+</body>
+</html>

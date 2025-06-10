@@ -1,0 +1,67 @@
+<!-- src/main/resources/templates/fragments/header.html -->
+<div th:fragment="barra-superior"
+     class="bg-light shadow-sm py-2"
+     style="position: relative; z-index: 1100;">
+
+    <div class="container-xl d-flex align-items-center justify-content-between">
+
+        <!-- ─── LOGO A LA IZQUIERDA ─── -->
+        <a th:href="@{/panel}"
+           class="navbar-brand mb-0 d-flex align-items-center"
+           style="font-weight: bold; font-size: 1.5rem; color: #111;">
+            <img th:src="@{/img/logosup.png}"
+                 alt="WatchTracker"
+                 style="height: 3rem; object-fit: contain;" />
+        </a>
+
+        <!-- ─── BUSCADOR “COMPACT” CENTRADO ─── -->
+        <form th:action="@{/buscar}"
+              method="get"
+              class="d-flex flex-grow-1 mx-4 justify-content-center align-items-center"
+              role="search"
+              style="max-width: 500px;">
+            <input class="form-control form-control-sm me-2 buscar-input"
+                   type="search"
+                   name="query"
+                   placeholder="Buscar…"
+                   aria-label="Buscar">
+            <button class="btn btn-sm" type="submit">
+                <img class="ir" src="/img/iconos/ir.png" alt="Ir">
+            </button>
+        </form>
+
+        <!-- ─── ICONO DE USUARIO A LA DERECHA (CÍRCULO) ─── -->
+        <div class="dropdown">
+            <button class="btn btn-outline-primary usuario-circle"
+                    type="button"
+                    id="usuarioDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                <img th:src="@{/img/iconos/user.png}" alt="Usuario" class="action-icon"/>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usuarioDropdown">
+                <li>
+                    <a class="dropdown-item"
+                       th:href="@{/usuario/accesos}"
+                       th:text="${#authentication.name}">
+                        Nombre de Usuario
+                    </a>
+                </li>
+                <li>
+          <span class="dropdown-item-text text-muted small"
+                th:text="${usuarioActual.nombreUsuario}">
+            correo@ejemplo.com
+          </span>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item text-danger"
+                       th:href="@{/logout}">
+                        Cerrar sesión
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>

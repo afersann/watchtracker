@@ -1,0 +1,43 @@
+<div th:fragment="notificacion">
+  <!-- ⬇️  110 px por encima del borde inferior  -->
+  <div class="chat-notification position-fixed end-0 me-4"
+       style="bottom: 105px; z-index: 1200;">
+    <a th:href="@{/inbox}"
+       class="btn btn-primary position-relative rounded-circle"
+       style="width: 60px; height: 60px;">
+
+      <i class="bi bi-chat-dots fs-2"></i>
+      <span th:if="${mensajesNoLeidos > 0}"
+            th:text="${mensajesNoLeidos}"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
+    </a>
+  </div>
+</div>
+
+<div th:fragment="boton">
+  <button id="btn-mostrar-chat" class="chat-button position-fixed bottom-0 end-0 me-4 mb-3 border-0 p-0"
+          style="width: 60px; height: 60px; z-index: 1200; background: none;">
+    <img th:src="@{/img/ia.png}" alt="IA" style="width: 100%; height: 100%;">
+  </button>
+</div>
+
+<div th:fragment="ventana">
+  <!-- 🔴 Este contenedor es el que debe tener el ID y clases -->
+  <div id="chat-popup" class="chat-popup chat-hidden position-fixed bottom-0 end-0 me-5 mb-5 shadow rounded bg-white"
+       style="width: 300px; height: 400px; z-index: 1300;">
+
+    <div class="chat-header d-flex justify-content-between align-items-center p-2 border-bottom">
+      <h5 class="mb-0">Asistente WatchTracker</h5>
+      <button id="btn-minimizar-chat" class="btn btn-sm btn-outline-secondary">–</button>
+    </div>
+
+    <div id="chat-messages" class="chat-body p-2 overflow-auto" style="height: 270px;"></div>
+
+    <form id="chat-form" class="p-2">
+      <div class="input-group">
+        <input type="text" class="form-control" id="chat-input" placeholder="Escribe tu mensaje..." />
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>

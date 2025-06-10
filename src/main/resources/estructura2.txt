@@ -1,0 +1,25 @@
+Listado de rutas de carpetas
+El n£mero de serie del volumen es 3E64-5316
+C:.
+³   application.properties
+³   estructura2.txt
+³   
+ÃÄÄÄstatic
+³   ÀÄÄÄcss
+³           style.css
+³           
+ÀÄÄÄtemplates
+    ³   documentos.html
+    ³   historiales-reloj.html
+    ³   historiales.html
+    ³   identificar-reloj.html
+    ³   login.html
+    ³   nuevo-documento.html
+    ³   nuevo-historial.html
+    ³   nuevo-reloj.html
+    ³   panel.html
+    ³   relojes.html
+    ³   
+    ÀÄÄÄfragments
+            header.html
+            

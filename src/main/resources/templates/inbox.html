@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat</title>
+  <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+  <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-light">
+
+<div th:insert="~{fragments/header :: barra-superior}"></div>
+<div th:insert="~{fragments/navbar :: barra-navegacion}"></div>
+
+<!-- Contenido -->
+<main class="container cont mt-4 mb-5">
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <!-- Título y alta -->
+      <header class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h4 mb-0">📨 Conversaciones</h1>
+      </header>
+
+  <div th:if="${conversaciones.empty}">
+    <div class="alert alert-info text-center">
+      No tienes conversaciones aún.
+    </div>
+  </div>
+
+  <div class="list-group shadow-sm"
+       th:each="conv : ${conversaciones}">
+    <a th:href="@{/inbox/{id}(id=${conv.id})}"
+       class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+
+      <div>
+        <strong th:text="${conv.usuario1.id == usuarioActual.id
+                            ? conv.usuario2.nombreUsuario
+                            : conv.usuario1.nombreUsuario}">
+          Nombre del otro usuario
+        </strong>
+
+        <div class="small text-muted">
+          Último mensaje:
+          <span th:if="${ultimosMensajes[conv.id] != null}"
+                th:text="${#temporals.format(ultimosMensajes[conv.id].fechaEnvio,
+                                             'dd/MM/yyyy HH:mm')}">Fecha</span>
+          <span th:if="${ultimosMensajes[conv.id] == null}">Sin mensajes</span>
+        </div>
+      </div>
+
+    </a>
+  </div>
+</div>
+  </div>
+</main>
+
+
+<div id="datos-usuario" th:data-usuario="${#authentication.name}" style="display: none;"></div>
+<div th:insert="~{fragments/footer :: pie}"></div>
+<div th:insert="~{'fragments/chat-popup' :: notificacion}"></div>
+<div th:insert="~{fragments/chat-popup :: boton}"></div>
+<div th:insert="~{fragments/chat-popup :: ventana}"></div>
+
+
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/chat.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle Reloj</title>
+  <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+  <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-light">
+
+<div th:insert="~{fragments/header :: barra-superior}"></div>
+<div th:insert="~{fragments/navbar :: barra-navegacion}"></div>
+
+
+<main class="container mt-4 ">
+
+
+  <div class="card shadow-sm p-4 slide-in-right">
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <img th:src="@{${reloj.fotoRuta != null ? reloj.fotoRuta : '/img/relojes/default.png'}}"
+             class="img-fluid rounded border"
+             alt="Imagen del reloj" style="max-height: 300px;">
+      </div>
+      <div class="col-md-8">
+        <h2 class="mb-3" th:text="${reloj.marca + ' ' + reloj.modelo}">Marca Modelo</h2>
+
+        <p><strong>Referencia:</strong> <span th:text="${reloj.referencia}">REF</span></p>
+        <p><strong>Año de Fabricación:</strong> <span th:text="${reloj.añoFabricacion}">2020</span></p>
+        <p><strong>Descripción:</strong></p>
+        <p th:text="${reloj.descripcion}">Descripción del reloj...</p>
+
+        <hr>
+
+        <p><strong>Creado por:</strong> <span th:text="${reloj.usuarioCreacion?.nombreUsuario}">usuario</span></p>
+        <p><strong>Última modificación:</strong>
+          <span th:if="${reloj.usuarioUltimaModificacion != null}"
+                th:text="${reloj.usuarioUltimaModificacion.nombreUsuario + ' (' + #temporals.format(reloj.fechaUltimaModificacion, 'dd/MM/yyyy HH:mm') + ')'}">
+            usuario (fecha)
+          </span>
+          <span th:if="${reloj.usuarioUltimaModificacion == null}">N/A</span>
+        </p>
+
+        <div class="mt-4 d-flex gap-3">
+          <!-- Botón editar solo para técnico o admin -->
+          <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_TECNICO'')')}"
+             th:href="@{'/relojes/editar/' + ${reloj.id}}" class="btn btn-warning">
+            ✏️ Editar
+          </a>
+
+          <!-- Botón siguiente -->
+          <a th:if="${siguienteId != null}" th:href="@{'/relojes/ver/' + ${siguienteId}}" class="btn btn-outline-primary">
+            ⏭️ Siguiente
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div id="datos-usuario" th:data-usuario="${#authentication.name}" style="display: none;"></div>
+<div th:insert="~{fragments/footer :: pie}"></div>
+<div th:insert="~{'fragments/chat-popup' :: notificacion}"></div>
+<div th:insert="~{fragments/chat-popup :: boton}"></div>
+<div th:insert="~{fragments/chat-popup :: ventana}"></div>
+
+
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/chat.js}"></script>
+</body>
+</html>

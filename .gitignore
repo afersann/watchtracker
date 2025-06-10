@@ -1,0 +1,55 @@
+#########################
+# COMPILACIÓN MAVEN / JAVA
+#########################
+target/
+*.class
+# Artefactos empacados
+*.jar
+*.war
+*.ear
+#########################
+# SECRETOS (¡no subir nunca!)
+#########################
+src/main/resources/credenciales/*.json
+src/main/resources/application.properties
+
+#########################
+# WRAPPER DE MAVEN
+#########################
+# Mantén los *scripts* mvnw/mvnw.cmd y la carpeta .mvn,
+# pero ignora el JAR que se descarga automáticamente.
+.mvn/wrapper/maven-wrapper.jar
+
+#########################
+# IDEs (IntelliJ / VS Code, etc.)
+#########################
+.idea/
+*.iml
+.vscode/
+
+#########################
+# LOGS, TEMPORALES, SISTEMA
+#########################
+logs/
+*.log
+*.tmp
+Thumbs.db
+.DS_Store
+
+#########################
+# VARIABLES DE ENTORNO / CLAVES
+#########################
+.env
+*.env
+
+#########################
+# DATOS DE LA APP
+#########################
+uploads/
+
+#########################
+# ZIPS y ARCHIVOS GRANDES
+#########################
+*.zip
+*.tar.gz
+*.rar

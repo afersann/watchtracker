@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Subir documento externo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Subir documento externo</h2>
+
+    <form th:action="@{/documentos/guardar}" method="post" enctype="multipart/form-data">
+        <label>Archivo:</label>
+        <input type="file" name="archivo" required /><br/><br/>
+
+        <label>Fuente:</label>
+        <input type="text" name="fuente" required /><br/><br/>
+
+        <label>Tipo de documento:</label>
+        <input type="text" name="tipoDocumento" required /><br/><br/>
+
+        <label>Fecha de obtención:</label>
+        <input type="date" name="fechaObtencion" required /><br/><br/>
+
+        <label>Seleccionar reloj:</label>
+        <select name="idReloj">
+            <option th:each="r : ${relojes}" th:value="${r.id}" th:text="${r.marca + ' ' + r.modelo}">Reloj</option>
+        </select><br/><br/>
+
+        <button type="submit">Subir Documento</button>
+    </form>
+</div>
+</body>
+</html>

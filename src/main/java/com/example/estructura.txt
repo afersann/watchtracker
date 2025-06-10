@@ -1,0 +1,41 @@
+Listado de rutas de carpetas
+El n£mero de serie del volumen es 3E64-5316
+C:.
+³   estructura.txt
+³   
+ÀÄÄÄwatchtracker
+    ³   WatchtrackerApplication.java
+    ³   
+    ÃÄÄÄconfig
+    ³       SecurityConfig.java
+    ³       
+    ÃÄÄÄcontrolador
+    ³       DocumentoExternoControlador.java
+    ³       DocumentoVistaControlador.java
+    ³       HistorialTecnicoControlador.java
+    ³       HistorialVistaControlador.java
+    ³       IdentificacionRelojControlador.java
+    ³       LoginControlador.java
+    ³       RelojControlador.java
+    ³       RelojVistaControlador.java
+    ³       UsuarioControlador.java
+    ³       
+    ÃÄÄÄmodelo
+    ³       DocumentoExterno.java
+    ³       HistorialTecnico.java
+    ³       Reloj.java
+    ³       Usuario.java
+    ³       
+    ÃÄÄÄrepositorio
+    ³       DocumentoExternoRepositorio.java
+    ³       HistorialTecnicoRepositorio.java
+    ³       RelojRepositorio.java
+    ³       UsuarioRepositorio.java
+    ³       
+    ÀÄÄÄservicio
+            DetallesUsuarioServicio.java
+            DocumentoExternoServicio.java
+            HistorialTecnicoServicio.java
+            RelojServicio.java
+            UsuarioServicio.java
+            

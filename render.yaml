@@ -1,5 +1,6 @@
 services:
   - type: web
     name: watchtracker1
+    runtime: docker
     plan: free
     dockerfilePath: ./Dockerfile

@@ -9,6 +9,12 @@ spring.datasource.hikari.idle-timeout=10000
 spring.datasource.hikari.max-lifetime=30000
 
 
+# Pool de conexiones Hikari (evita errores por límite de conexiones)
+spring.datasource.hikari.maximum-pool-size=1
+spring.datasource.hikari.minimum-idle=1
+spring.datasource.hikari.idle-timeout=10000
+spring.datasource.hikari.max-lifetime=20000
+
 # Configuración de JPA / Hibernate
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect

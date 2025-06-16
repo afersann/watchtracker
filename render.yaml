@@ -4,3 +4,7 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: ./Dockerfile
+    healthCheckPath: /login
+    envVars:
+      - key: PORT
+        value: 8081

@@ -1,0 +1,16 @@
+# Configuración de la base de datos (Clever Cloud)
+spring.datasource.url=jdbc:mysql://bdnzsa2zacldhpau8l7o-mysql.services.clever-cloud.com:3306/bdnzsa2zacldhpau8l7o?useSSL=true&serverTimezone=UTC
+spring.datasource.username=uqojcml5aa7fpibm
+spring.datasource.password=Vuszm0W6AXSodOtL7WV4
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Configuración de JPA / Hibernate
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+
+# Puerto en el que se ejecuta la aplicación
+server.port=8081
+
+# Claves de APIs externas
+openai.api.key=${OPENAI_API_KEY}
+ia.demo.activa=true

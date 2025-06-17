@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Optional;
+
 @Configuration
 public class AdminSeeder {
 
@@ -18,16 +20,17 @@ public class AdminSeeder {
 
     @PostConstruct
     public void initAdminUser() {
-        if (!usuarioRepositorio.existsByNombreUsuario("sudosu")) {
+        Optional<Usuario> existente = usuarioRepositorio.findByNombreUsuario("sudosu");
+        if (existente.isEmpty()) {
             Usuario admin = new Usuario();
             admin.setNombreUsuario("sudosu");
             admin.setCorreo("sudosu1@gmail.com");
-            admin.setPassword(passwordEncoder.encode("123"));
-            admin.setRol("ADMIN"); // Se evita el uso de un enum aquí
+            admin.setContrasena(passwordEncoder.encode("123"));
+            admin.setRol("ADMIN");
             usuarioRepositorio.save(admin);
-            System.out.println("Usuario admin 'sudosu' creado correctamente.");
+            System.out.println("✅ Usuario admin 'sudosu' creado correctamente.");
         } else {
-            System.out.println("El usuario admin 'sudosu' ya existe.");
+            System.out.println("ℹ️ El usuario admin 'sudosu' ya existe.");
         }
     }
 }

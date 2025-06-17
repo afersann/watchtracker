@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WatchTracker - Bienvenido</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">WatchTracker</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse fade-in" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/login}">Iniciar sesión</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/registro}">Registrarse</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero principal -->
+<section class="hero-banner d-flex align-items-center justify-content-center text-white">
+    <div class="container text-center">
+        <h1 class="display-4 fade-in">Bienvenido a WatchTracker</h1>
+        <p class="lead fade-in">Gestiona, identifica y conecta con otros amantes de los relojes.</p>
+        <a th:href="@{/registro}" class="btn btn-primary btn-lg mt-3">Empieza ahora</a>
+    </div>
+</section>
+
+<!-- Panel explicativo -->
+<section class="cat-panel fade-in">
+    <div class="container text-center">
+        <h1>Tu asistente relojero</h1>
+        <p>
+            WatchTracker no es solo una app. Es una herramienta completa para identificar relojes con inteligencia artificial,
+            llevar el historial técnico de tus piezas y conectar con técnicos, coleccionistas y entusiastas.
+        </p>
+        <p>
+            Comparte conocimientos, resuelve dudas y forma parte de una comunidad activa y especializada.
+        </p>
+    </div>
+</section>
+
+<!-- Grid de funcionalidades -->
+<section class="container fade-in pb-5">
+    <div class="cat-grid">
+        <div class="cat-item">
+            <img src="/img/icono-identificar.png" alt="Identificación">
+            <span>Identifica relojes</span>
+        </div>
+        <div class="cat-item">
+            <img src="/img/icono-historial.png" alt="Historial técnico">
+            <span>Gestiona historial</span>
+        </div>
+        <div class="cat-item">
+            <img src="/img/icono-comunidad.png" alt="Comunidad">
+            <span>Habla con usuarios</span>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+        &copy; 2025 WatchTracker · Desarrollado por Andrea
+    </div>
+</footer>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

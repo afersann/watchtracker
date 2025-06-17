@@ -4,32 +4,61 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url('/img/bgwhite.png');  /* Ajusta la ruta si es distinta */
-  background-size: cover;                  /* Que cubra toda la pantalla */
-  background-repeat: no-repeat;            /* No repetir */
-  background-position: center center;      /* Centrada */
-  background-attachment: fixed;            /* Fija incluso al hacer scroll */
+  background-image: url('/img/bgwhite.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 .hero-banner {
-    height: 50vh;
-    background: url('/img/principal.png') center/cover no-repeat;
-    position: relative;
+  height: 50vh;
+  background: url('/img/principal.png') center/cover no-repeat;
+  position: relative;
 }
 .hero-overlay {
-    background-color: rgba(0, 0, 0, 0.55);
-    width: 100%;
-    height: 100%;
-    padding: 2rem;
-    text-shadow: 1px 1px 5px #000;
+  background-color: rgba(0, 0, 0, 0.55);
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  text-shadow: 1px 1px 5px #000;
 }
 .hero-overlay h1, .hero-overlay p {
-    color: white;
+  color: white;
 }
 
+.btn-imagen {
+  display: inline-block;
+  margin-top: 1rem;
+  width: 100px;
+  height: 100px;
+  background: url('/img/entrar.png') center/contain no-repeat;
+  border: none;
+  text-indent: -9999px;
+}
+.btn-imagen:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
 
+.landing-descripcion {
+  color: #333;
+  font-size: 1.15rem;
+  max-width: 900px;
+  margin: 2rem auto 3rem;
+  padding: 0 1rem;
+  text-align: center;
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
 
-
+footer {
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 2rem 0;
+  font-size: 0.95rem;
+}
 
 /*──────────────────────────────────────────────────────────────────────────────
   Tablas
@@ -151,67 +180,68 @@ h2 {
 .login-container{
 background-image: url('/img/principalvertical.png') center/cover no-repeat;
 }
-  .nav-icon {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-  }
+.nav-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
 
-     /* Hero más compacto */
-      .hero-banner {
-        height: 50vh;
-        background: url('/img/principal.png') center/cover no-repeat;
-      }
-      .hero-overlay {
-        background-color: rgba(0,0,0,0.6);
-        height: 100%;
-      }
+/* Hero más compacto */
+.hero-banner {
+  height: 50vh;
+  background: url('/img/principal.png') center/cover no-repeat;
+}
+.hero-overlay {
+  background-color: rgba(0,0,0,0.6);
+  height: 100%;
+}
 
-      /* Panel vidrio esmerilado */
-      .cat-panel {
-        position: relative;
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(15px);
-        border-radius: .5rem;
-        padding: 2rem;
-        max-width: 900px;
-        margin: -8rem auto 4rem;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      }
-      .cat-panel h1 {
-        color: black;
-        font-size: 2.25rem;
-        margin-bottom: .25rem;
-      }
-      .cat-panel p {
-        color: #ddd;
-        text-transform: uppercase;
-        letter-spacing: .1em;
-        margin-bottom: 1.5rem;
-      }
-      /* Grid de iconos */
-      .cat-grid {
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        gap: 1.5rem;
-      }
-      .cat-item {
-        text-align: center;
-      }
-      .cat-item img {
-        width: 85px;
-        height: 85px;
-        margin-bottom: .75rem;
-      }
-      .cat-item span {
-        display: block;
-        color: #fff;
-        font-weight: 500;
-      }
-      /* Responsivo: 2 cols en sm */
-      @media (max-width: 576px) {
-        .cat-grid { grid-template-columns: repeat(2,1fr); }
-      }
+/* Panel vidrio esmerilado */
+.cat-panel {
+  position: relative;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(15px);
+  border-radius: .5rem;
+  padding: 2rem;
+  max-width: 900px;
+  margin: -8rem auto 4rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+.cat-panel h1 {
+  color: black;
+  font-size: 2.25rem;
+  margin-bottom: .25rem;
+}
+.cat-panel p {
+  color: #ddd;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 1.5rem;
+}
+/* Grid de iconos */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1.5rem;
+}
+.cat-item {
+  text-align: center;
+}
+.cat-item img {
+  width: 85px;
+  height: 85px;
+  margin-bottom: .75rem;
+}
+.cat-item span {
+  display: block;
+  color: #fff;
+  font-weight: 500;
+}
+/* Responsivo: 2 cols en sm */
+@media (max-width: 576px) {
+  .cat-grid { grid-template-columns: repeat(2,1fr); }
+}
+
 /*──────────────────────────────────────────────────────────────────────────────
   Buscador “compacto”
 ──────────────────────────────────────────────────────────────────────────────*/
@@ -241,9 +271,6 @@ background-image: url('/img/principalvertical.png') center/cover no-repeat;
 }
 
 /*──────────────────────────────────────────────────────────────────────────────
-  Páginas de login
-──────────────────────────────────────────────────────────────────────────────*/
-/*──────────────────────────────────────────────────────────────────────────────
   Vista de chat flotante
 ──────────────────────────────────────────────────────────────────────────────*/
 .action-icon {
@@ -253,10 +280,8 @@ background-image: url('/img/principalvertical.png') center/cover no-repeat;
   vertical-align: middle;
 }
 .nuevoevento{
-    width: 90px !important;
+  width: 90px !important;
 }
-
-
 .chat-popup {
   position: fixed;
   bottom: 80px;
@@ -310,10 +335,9 @@ background-image: url('/img/principalvertical.png') center/cover no-repeat;
   visibility: hidden;
   transform: scale(0.9);
 }
-
 .ir{
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 /*──────────────────────────────────────────────────────────────────────────────
@@ -350,56 +374,46 @@ background-image: url('/img/principalvertical.png') center/cover no-repeat;
   height: 20px;
   font-size: 12px;
   line-height: 20px;
-  top: calc(100vh - 100px); /* ligeramente encima del botón */
-  right: 36px;              /* ajusta según la posición del botón flotante */
+  top: calc(100vh - 100px);
+  right: 36px;
   z-index: 1055;
 }
 .chat-float-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1050;
-    background-color: #0d6efd;
-    color: white;
-    padding: 12px;
-    border-radius: 50%;
-    cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1050;
+  background-color: #0d6efd;
+  color: white;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
 }
-
-/* ---- Conversación --------------------------------------------- */
 .chat-window{
-    max-height:60vh;
-    overflow-y:auto;
-    padding:.5rem;
+  max-height:60vh;
+  overflow-y:auto;
+  padding:.5rem;
 }
-
-
-/* Las burbujas ahora son BLOQUES completos,
-   así cada mensaje ocupa su propia línea */
 .bubble{
-    display:block;                 /* ⬅️ clave */
-    max-width:75%;
-    padding:.6rem .8rem;
-    border-radius:1.1rem;
-    margin-bottom:.5rem;           /* separación vertical */
-    font-size:.95rem;
-    word-wrap:break-word;
+  display:block;
+  max-width:75%;
+  padding:.6rem .8rem;
+  border-radius:1.1rem;
+  margin-bottom:.5rem;
+  font-size:.95rem;
+  word-wrap:break-word;
 }
-
-
-.bubble-self{ background:#d1e7dd; }   /* verde */
-.bubble-other{ background:#f1f1f1; }  /* gris  */
-
+.bubble-self{ background:#d1e7dd; }
+.bubble-other{ background:#f1f1f1; }
 .msg-meta{
-    display:block;
-    font-size:.75rem;
-    opacity:.7;
-    margin-top:.25rem;
-    text-align:right;
+  display:block;
+  font-size:.75rem;
+  opacity:.7;
+  margin-top:.25rem;
+  text-align:right;
 }
 .role-icon {
   width: 3rem;
   height: 3rem;
   object-fit: contain;
-
 }

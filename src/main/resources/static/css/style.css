@@ -204,6 +204,7 @@ background-image: url('/img/principalvertical.png') center/cover no-repeat;
   border-radius: .5rem;
   padding: 2rem;
   max-width: 900px;
+  margin: 8rem auto 4rem;
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
 .cat-panel h1 {

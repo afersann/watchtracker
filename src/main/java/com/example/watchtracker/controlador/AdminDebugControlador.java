@@ -18,4 +18,15 @@ public class AdminDebugControlador {
     public List<Usuario> listarUsuarios() {
         return usuarioRepositorio.findAll();
     }
+	
+@PutMapping("/cambiar-rol")
+public String cambiarRol(@RequestParam String usuario, @RequestParam String nuevoRol) {
+    return usuarioRepositorio.findByNombreUsuario(usuario).map(u -> {
+        u.setRol(nuevoRol);
+        usuarioRepositorio.save(u);
+        return "Rol actualizado a " + nuevoRol;
+    }).orElse("Usuario no encontrado");
+}
+
+
 }

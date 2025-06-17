@@ -17,7 +17,7 @@ body {
   position: relative;
 }
 .hero-overlay {
-  background-color: rgba(0, 0, 0, 0.55);
+ 
   width: 100%;
   height: 100%;
   padding: 2rem;
@@ -192,7 +192,7 @@ background-image: url('/img/principalvertical.png') center/cover no-repeat;
   background: url('/img/principal.png') center/cover no-repeat;
 }
 .hero-overlay {
-  background-color: rgba(0,0,0,0.6);
+
   height: 100%;
 }
 

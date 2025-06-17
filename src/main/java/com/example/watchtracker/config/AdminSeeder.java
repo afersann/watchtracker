@@ -25,7 +25,7 @@ public class AdminSeeder {
             Usuario admin = new Usuario();
             admin.setNombreUsuario("sudosu");
             admin.setCorreo("sudosu1@gmail.com");
-            admin.setContrasena(passwordEncoder.encode("123"));
+            admin.setPasswordHash(passwordEncoder.encode("123"));
             admin.setRol("ADMIN");
             usuarioRepositorio.save(admin);
             System.out.println("✅ Usuario admin 'sudosu' creado correctamente.");

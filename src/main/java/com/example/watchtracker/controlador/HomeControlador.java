@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HomeControlador {
 
     @GetMapping("/")
-    @ResponseBody
-    public String testLanding() {
-        return "¡Landing cargada correctamente!";
-    }
+public String mostrarLanding() {
+    return "landing";
+}
+
 }

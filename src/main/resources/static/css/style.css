@@ -11,6 +11,21 @@ body {
   background-attachment: fixed;            /* Fija incluso al hacer scroll */
 }
 
+.hero-banner {
+    height: 50vh;
+    background: url('/img/principal.png') center/cover no-repeat;
+    position: relative;
+}
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.55);
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    text-shadow: 1px 1px 5px #000;
+}
+.hero-overlay h1, .hero-overlay p {
+    color: white;
+}
 
 
 

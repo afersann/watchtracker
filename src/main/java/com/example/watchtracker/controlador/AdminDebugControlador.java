@@ -19,7 +19,7 @@ public class AdminDebugControlador {
         return usuarioRepositorio.findAll();
     }
 	
-@PutMapping("/cambiar-rol")
+@GetMapping("/cambiar-rol")
 public String cambiarRol(@RequestParam String usuario, @RequestParam String nuevoRol) {
     return usuarioRepositorio.findByNombreUsuario(usuario).map(u -> {
         u.setRol(nuevoRol);
@@ -27,6 +27,8 @@ public String cambiarRol(@RequestParam String usuario, @RequestParam String nuev
         return "Rol actualizado a " + nuevoRol;
     }).orElse("Usuario no encontrado");
 }
+
+
 
 
 }
